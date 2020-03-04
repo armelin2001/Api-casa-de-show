@@ -10,7 +10,6 @@ namespace Api_casa_de_show.Models
     public class Venda
     {
         public int Id{get;set;}
-
         public string UserId{get;set;}
         public int QtdIngresso{get;set;}
         public float ValorCompra{get{return QtdIngresso * Evento.PrecoIngresso;}

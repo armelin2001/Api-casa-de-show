@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Api_casa_de_show.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200303193855_AdicionandoEvento")]
+    [Migration("20200305120257_AdicionandoEvento")]
     partial class AdicionandoEvento
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -98,8 +98,8 @@ namespace Api_casa_de_show.Migrations
                     b.Property<string>("Nome")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<int>("Senha")
-                        .HasColumnType("int");
+                    b.Property<string>("Senha")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("UltimoNome")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");

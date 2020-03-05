@@ -12,6 +12,9 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Api_casa_de_show.Data;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
+using System.IO;
+using System.Reflection;
 
 namespace Api_casa_de_show
 {
@@ -29,7 +32,10 @@ namespace Api_casa_de_show
         {
             services.AddDbContext<ApplicationDbContext>(options=>options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
             services.AddSwaggerGen(config=>{
-                config.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo{Title = "Api",Version="v1"});
+                config.SwaggerDoc("v1", new OpenApiInfo{Title = "Api",Version="v1"});
+                var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+                var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
+                config.IncludeXmlComments(xmlPath);
             });
             services.AddControllers();
         }
@@ -56,6 +62,7 @@ namespace Api_casa_de_show
             app.UseSwaggerUI(config=>{
                 config.SwaggerEndpoint("/swagger/v1/swagger.json","v1 docs");
             });
+            
         }
     }
 }

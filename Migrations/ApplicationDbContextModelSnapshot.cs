@@ -96,8 +96,8 @@ namespace Api_casa_de_show.Migrations
                     b.Property<string>("Nome")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<int>("Senha")
-                        .HasColumnType("int");
+                    b.Property<string>("Senha")
+                        .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.Property<string>("UltimoNome")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");

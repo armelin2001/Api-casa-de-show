@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Api-casa-de-show</name>
+    </assembly>
+    <members>
+        <member name="M:Api_casa_de_show.Controllers.VendaController.PegarVendas">
+            <summary>
+            Lista todas as vendas realizadas
+            </summary>
+        </member>
+        <member name="M:Api_casa_de_show.Controllers.VendaController.PegarVendas(System.Int32)">
+            <summary>
+            Lista uma venda
+            </summary>
+            <param name="id"></param>
+        </member>
+    </members>
+</doc>

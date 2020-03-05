@@ -1,3 +1,5 @@
+using System;
+
 namespace Api_casa_de_show.Models.ViewModels.UsuarioViewModels
 {
     public class ListarUsuarioViewModel
@@ -6,5 +8,6 @@ namespace Api_casa_de_show.Models.ViewModels.UsuarioViewModels
         public string Nome{get;set;}
         public string UltimoNome{get;set;}
         public string Email{get;set;}
+
     }
 }

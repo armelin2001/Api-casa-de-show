@@ -43,3 +43,5 @@ C:\Users\MSAD\Documents\GitHub\Api-casa-de-show\obj\Debug\netcoreapp3.1\Api-casa
 C:\Users\MSAD\Documents\GitHub\Api-casa-de-show\obj\Debug\netcoreapp3.1\Api-casa-de-show.csproj.CopyComplete
 C:\Users\MSAD\Documents\GitHub\Api-casa-de-show\obj\Debug\netcoreapp3.1\Api-casa-de-show.dll
 C:\Users\MSAD\Documents\GitHub\Api-casa-de-show\obj\Debug\netcoreapp3.1\Api-casa-de-show.pdb
+C:\Users\MSAD\Documents\GitHub\Api-casa-de-show\bin\Debug\netcoreapp3.1\Api-casa-de-show.xml
+C:\Users\MSAD\Documents\GitHub\Api-casa-de-show\obj\Debug\netcoreapp3.1\Api-casa-de-show.xml

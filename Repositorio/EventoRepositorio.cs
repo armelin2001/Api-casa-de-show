@@ -1,5 +1,6 @@
 using Api_casa_de_show.Data;
 using Api_casa_de_show.Models;
+using Api_casa_de_show.Models.ViewModels.EventoViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,8 +14,19 @@ namespace Api_casa_de_show.Repositorio
         public EventoRepositorio(ApplicationDbContext database){
             _database = database;
         }
-        public List<Evento> ListarEventos(){
-            return _database.Eventos.ToList();
+        public List<ListarEventoViewModel> ListarEventos(){
+            return _database.Eventos.Select(x=> new ListarEventoViewModel
+            {
+                Id = x.Id,
+                CasaDeShowId = x.CasaDeShowsId.Value,
+                CasaDeShow = x.CasaDeShow.NomeCasaDeShow,
+                GeneroDoEventoId = x.GeneroDoEventoId.Value,
+                GeneroEvento = x.GeneroEvento.NomeGenero,
+                NomeDoEvento = x.NomeDoEvento,
+                Capacidade = x.Capacidade,
+                DataEvetno = x.DataEvento,
+                HorarioEvento = x.HorarioEvento
+            }).ToList();
         }
         public Evento BuscarEvento(int id){
             var buscaEvento = _database.Eventos.FirstOrDefault(x=>x.Id == id);

@@ -41,10 +41,10 @@ namespace Api_casa_de_show.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    Senha = table.Column<int>(nullable: false),
                     Nome = table.Column<string>(nullable: true),
                     UltimoNome = table.Column<string>(nullable: true),
-                    Email = table.Column<string>(nullable: true)
+                    Email = table.Column<string>(nullable: true),
+                    Senha = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {

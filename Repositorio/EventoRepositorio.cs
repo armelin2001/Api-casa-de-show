@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+
 namespace Api_casa_de_show.Repositorio
 {
     public class EventoRepositorio
@@ -15,7 +17,7 @@ namespace Api_casa_de_show.Repositorio
             _database = database;
         }
         public List<ListarEventoViewModel> ListarEventos(){
-            return _database.Eventos.Select(x=> new ListarEventoViewModel
+            return _database.Eventos.Include(x=>x.GeneroEvento).Select(x=> new ListarEventoViewModel
             {
                 Id = x.Id,
                 CasaDeShowId = x.CasaDeShowsId.Value,

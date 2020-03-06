@@ -15,7 +15,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Models;
 using System.IO;
 using System.Reflection;
-
+using Api_casa_de_show.Repositorio;
 namespace Api_casa_de_show
 {
     public class Startup
@@ -26,7 +26,7 @@ namespace Api_casa_de_show
         }
 
         public IConfiguration Configuration { get; }
-
+        //https://localhost:5001/swagger/index.html
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -37,6 +37,11 @@ namespace Api_casa_de_show
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 config.IncludeXmlComments(xmlPath);
             });
+            services.AddTransient<CasaDeShowRepositorio>();
+            services.AddTransient<EventoRepositorio>();
+            services.AddTransient<GeneroRepositorio>();
+            services.AddTransient<UsuarioRepositorio>();
+            services.AddTransient<VendaRepositorio>();
             services.AddControllers();
         }
 

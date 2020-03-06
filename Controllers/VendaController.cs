@@ -23,12 +23,12 @@ namespace Api_casa_de_show.Controllers
         public IActionResult PegarVendas(){
             var listaDeVendas = _vendaRepositorio.ListarVendas();
             int tamanhoLista = listaDeVendas.Count;
-            if(tamanhoLista>0){
-                StatusCode(StatusCodes.Status200OK);
+            if(tamanhoLista<0){
+                Response.StatusCode = 200;
                 return new ObjectResult(listaDeVendas);
             }
             else{
-                StatusCode(StatusCodes.Status404NotFound);                
+                Response.StatusCode = 404;                
                 return new ObjectResult(new{msg="Não Existe uma venda registrada"});
             }
         }
@@ -39,12 +39,13 @@ namespace Api_casa_de_show.Controllers
         [Route("api/vendas/{id}")]
         [HttpGet]
         public IActionResult PegarVendas(int id){
-            try{
-                var venda = _vendaRepositorio.BuscarVenda(id);
-                StatusCode(StatusCodes.Status200OK);
+            var venda = _vendaRepositorio.BuscarVenda(id);
+            if(venda != null){
+                Response.StatusCode = 302;
                 return new ObjectResult(venda);
-            }catch{
-                StatusCode(StatusCodes.Status404NotFound);
+            }
+            else{
+                Response.StatusCode = 404;
                 return new ObjectResult(new {msg="Não foi possivel encontrar uma venda"});
             }
         }

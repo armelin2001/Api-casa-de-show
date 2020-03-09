@@ -121,7 +121,7 @@ namespace Api_casa_de_show.Controllers
             }
             else{
                 Response.StatusCode = 404;
-                return new ObjectResult(new {msg="Não foipossivel ordenar a pacidade por ordem ascendente pois não existe um evento ainda"});
+                return new ObjectResult(new {msg="Não foi possivel ordenar a pacidade por ordem ascendente pois não existe um evento ainda"});
             }
         }
         [Route("api/eventos/capacidade/desc")]
@@ -136,7 +136,7 @@ namespace Api_casa_de_show.Controllers
             }
             else{
                 Response.StatusCode = 404;
-                return new ObjectResult(new {msg="Não foipossivel ordenar a pacidade por ordem decrescente pois não existe um evento ainda"});
+                return new ObjectResult(new {msg="Não foi possivel ordenar a pacidade por ordem decrescente pois não existe um evento ainda"});
             }
         }
         [Route("api/eventos/data/asc")]
@@ -151,7 +151,7 @@ namespace Api_casa_de_show.Controllers
             }
             else{
                 Response.StatusCode = 404;
-                return new ObjectResult(new {msg="Não foipossivel ordenar a data por ordem ascendente pois não existe um evento ainda"});
+                return new ObjectResult(new {msg="Não foi possivel ordenar a data por ordem ascendente pois não existe um evento ainda"});
             }
         }
         [Route("api/eventos/data/desc")]
@@ -166,7 +166,7 @@ namespace Api_casa_de_show.Controllers
             }
             else{
                 Response.StatusCode = 404;
-                return new ObjectResult(new {msg="Não foipossivel ordenar a data por ordem decrescente pois não existe um evento ainda"});
+                return new ObjectResult(new {msg="Não foi possivel ordenar a data por ordem decrescente pois não existe um evento ainda"});
             }
         }
         [Route("api/eventos/nome/asc")]
@@ -181,7 +181,7 @@ namespace Api_casa_de_show.Controllers
             }
             else{
                 Response.StatusCode = 404;
-                return new ObjectResult(new {msg="Não foipossivel ordenar o nome por ordem ascendente pois não existe um evento ainda"});
+                return new ObjectResult(new {msg="Não foi possivel ordenar o nome por ordem ascendente pois não existe um evento ainda"});
             }
         }
         [Route("api/eventos/nome/desc")]
@@ -196,7 +196,7 @@ namespace Api_casa_de_show.Controllers
             }
             else{
                 Response.StatusCode = 404;
-                return new ObjectResult(new {msg="Não foipossivel ordenar o nome por ordem decrescente pois não existe um evento ainda"});
+                return new ObjectResult(new {msg="Não foi possivel ordenar o nome por ordem decrescente pois não existe um evento ainda"});
             }
         }
         [Route("api/eventos/preco/asc")]
@@ -211,7 +211,7 @@ namespace Api_casa_de_show.Controllers
             }
             else{
                 Response.StatusCode = 404;
-                return new ObjectResult(new {msg="Não foipossivel ordenar o preço por ordem ascendente pois não existe um evento ainda"});
+                return new ObjectResult(new {msg="Não foi possivel ordenar o preço por ordem ascendente pois não existe um evento ainda"});
             }
         }
         [Route("api/eventos/preco/desc")]
@@ -226,7 +226,7 @@ namespace Api_casa_de_show.Controllers
             }
             else{
                 Response.StatusCode = 404;
-                return new ObjectResult(new {msg="Não foipossivel ordenar o nome por ordem decrescente pois não existe um evento ainda"});
+                return new ObjectResult(new {msg="Não foi possivel ordenar o nome por ordem decrescente pois não existe um evento ainda"});
             }
         }
     }

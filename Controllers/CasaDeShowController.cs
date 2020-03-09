@@ -100,5 +100,33 @@ namespace Api_casa_de_show.Controllers
                 return new ObjectResult(new {msg="Não foi possivel deletar a casa de show"});
             }
         }
+        [Route("api/casas/asc")]
+        [HttpGet]
+        public IActionResult OrdeneandoCasaAsc(){
+            var listaCasas = _casaDeShowRepositorio.ListarCasasDeShows();
+            int tamanhoListaCasas = listaCasas.Count;
+            if(tamanhoListaCasas<0){
+                Response.StatusCode = 200;
+                var listaAsc = listaCasas.OrderBy(x=>x.NomeCasaDeShow);
+                return new ObjectResult(listaAsc);
+            }
+            else{
+                Response.StatusCode = 404;
+                return new ObjectResult(new {msg="Não possivel ordenar casas de show por ordem ascendente"});
+            }
+        }
+        [Route("api/casas/desc")]
+        [HttpGet]
+        public IActionResult OrdeneandoCasaDesc(){
+            var listaCasas = _casaDeShowRepositorio.ListarCasasDeShows();
+            int tamanhoListaCasas = listaCasas.Count;
+            if(tamanhoListaCasas<0){
+                Response.StatusCode = 200;
+                var 
+            }
+            else{
+                Response.StatusCode = 404;
+            }
+        }
     }
 }

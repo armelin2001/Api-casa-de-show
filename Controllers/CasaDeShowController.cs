@@ -23,8 +23,8 @@ namespace Api_casa_de_show.Controllers
         public IActionResult PegarCasas(){
             var listaCasas = _casaDeShowRepositorio.ListarCasasDeShows();
             int tamanhoListaCasas = listaCasas.Count;
-            if(tamanhoListaCasas<0){
-                Response.StatusCode = 200;
+            if(tamanhoListaCasas>0){
+                Response.StatusCode = 302;
                 return new ObjectResult(listaCasas);
             }
             else{
@@ -37,7 +37,7 @@ namespace Api_casa_de_show.Controllers
         public IActionResult PegarCasas(int id){
             var casa = _casaDeShowRepositorio.BuscarCasasDeShows(id);
             if(casa!=null){
-                Response.StatusCode = 200;
+                Response.StatusCode = 302;
                 return new ObjectResult(casa);
             }
             else{
@@ -59,7 +59,8 @@ namespace Api_casa_de_show.Controllers
             }
             else{
                 Response.StatusCode = 400;
-                return new ObjectResult(casaTemp); 
+                var erros = ModelState.Values.SelectMany(v=>v.Errors).Select(v=>v.ErrorMessage+""+v.Exception).ToList();
+                return new ObjectResult(erros); 
             }
         }
         [Route("api/casas/{id}")]
@@ -77,7 +78,8 @@ namespace Api_casa_de_show.Controllers
                 }
                 else{
                     Response.StatusCode = 400;
-                    return new ObjectResult(casaTemp);
+                    var erros = ModelState.Values.SelectMany(v=>v.Errors).Select(v=>v.ErrorMessage+""+v.Exception).ToList();
+                    return new ObjectResult(erros);
                 }
             }
             catch{
@@ -105,8 +107,8 @@ namespace Api_casa_de_show.Controllers
         public IActionResult OrdeneandoCasaAsc(){
             var listaCasas = _casaDeShowRepositorio.ListarCasasDeShows();
             int tamanhoListaCasas = listaCasas.Count;
-            if(tamanhoListaCasas<0){
-                Response.StatusCode = 200;
+            if(tamanhoListaCasas>0){
+                Response.StatusCode = 302;
                 var listaAsc = listaCasas.OrderBy(x=>x.NomeCasaDeShow);
                 return new ObjectResult(listaAsc);
             }
@@ -120,12 +122,27 @@ namespace Api_casa_de_show.Controllers
         public IActionResult OrdeneandoCasaDesc(){
             var listaCasas = _casaDeShowRepositorio.ListarCasasDeShows();
             int tamanhoListaCasas = listaCasas.Count;
-            if(tamanhoListaCasas<0){
-                Response.StatusCode = 200;
-                var 
+            if(tamanhoListaCasas>0){
+                Response.StatusCode = 302;
+                var listaDesc = listaCasas.OrderByDescending(x=>x.NomeCasaDeShow);
+                return new ObjectResult(listaDesc); 
+                }
+            else{
+                Response.StatusCode = 404;
+                return new ObjectResult(new {msg="Não foi possivel ordenar as casas de show por ordem descendente"});
+            }
+        }
+        [Route("api/casas/nome/{nome}")]
+        [HttpGet]
+        public IActionResult OrdeneandoCasaNome(string nome){
+            var listaCasasNome = _casaDeShowRepositorio.BuscarCasasDeShowsNome(nome);
+            if(listaCasasNome!=null){
+                Response.StatusCode = 302;
+                return new ObjectResult(listaCasasNome); 
             }
             else{
                 Response.StatusCode = 404;
+                return new ObjectResult(new{msg="Não foi possivel encontra uma casa de show pelo nome"});
             }
         }
     }

@@ -32,5 +32,10 @@ namespace Api_casa_de_show.Repositorio
             _database.CasasDeShows.Update(casaDeShow);
             _database.SaveChanges();
         }
+        public CasaDeShow BuscarCasasDeShowsNome(String nome){
+            var buscarCasasDeShowsNome = _database.CasasDeShows.FirstOrDefault(x=>x.NomeCasaDeShow == nome);
+            return buscarCasasDeShowsNome;
+
+        }
     }
 }

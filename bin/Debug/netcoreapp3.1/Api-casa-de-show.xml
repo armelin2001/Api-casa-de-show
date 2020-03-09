@@ -5,9 +5,11 @@
     </assembly>
     <members>
         <member name="M:Api_casa_de_show.Controllers.VendaController.PegarVendas">
-            <summary>
-            Lista todas as vendas realizadas
-            </summary>
+             <summary>
+             Lista todas as vendas realizadas
+             </summary>
+            <response code="302">Encontrou todos as vendas</response>
+            <response code="404">Não tem nenhuma venda registrada</response>
         </member>
         <member name="M:Api_casa_de_show.Controllers.VendaController.PegarVendas(System.Int32)">
             <summary>

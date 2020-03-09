@@ -20,9 +20,9 @@ namespace Api_casa_de_show.Controllers
         public IActionResult PegarEventos(){
             var listaEventos = _eventoRepositorio.ListarEventos();
             int tamanhoListaEvento = listaEventos.Count;
-            if(tamanhoListaEvento<0){
+            if(tamanhoListaEvento>0){
                 //StatusCode(StatusCodes.Status200OK);
-                Response.StatusCode = 200;
+                Response.StatusCode = 302;
                 return new ObjectResult(listaEventos);
             }
             else{
@@ -36,7 +36,7 @@ namespace Api_casa_de_show.Controllers
         public IActionResult PegarEventos(int id){
             var evento = _eventoRepositorio.BuscarEvento(id);
             if(evento!=null){
-                Response.StatusCode = 200;
+                Response.StatusCode = 302;
                 return new ObjectResult(evento);
             }
             else{
@@ -55,16 +55,24 @@ namespace Api_casa_de_show.Controllers
                 evento.NomeDoEvento = eventoTemp.NomeDoEvento;
                 evento.Capacidade = eventoTemp.Capacidade;
                 evento.PrecoIngresso = eventoTemp.PrecoIngresso;
-                evento.DataEvento = eventoTemp.DataEvento;
-                evento.HorarioEvento = eventoTemp.HorarioEvento;
+                evento.DataEvento = eventoTemp.DataEvento.Date;
+                evento.HorarioEvento = eventoTemp.DataEvento.ToLocalTime();
                 _eventoRepositorio.AdicionarEvento(evento);
                 var eventoResult = _eventoRepositorio.BuscarEvento(evento.Id);
                 Response.StatusCode = 201;
                 return new ObjectResult(eventoResult);
             }
             else{
+                var erros = ModelState.Values.SelectMany(v=>v.Errors).Select(v=>v.ErrorMessage+""+v.Exception).ToList();
+                // var eventoErro = new CriandoEventoViewModel();
+                // eventoErro.CasaDeShowsId = eventoTemp.CasaDeShowsId;
+                // eventoErro.GeneroEvento = eventoTemp.GeneroEvento;
+                // eventoErro.NomeDoEvento = eventoTemp.NomeDoEvento;
+                // eventoErro.Capacidade = eventoTemp.Capacidade;
+                // eventoErro.PrecoIngresso =  eventoTemp.PrecoIngresso;
+                // eventoErro.DataEvento = eventoTemp.DataEvento;
                 Response.StatusCode = 400;
-                return new ObjectResult(eventoTemp);
+                return new ObjectResult(erros);
             }
         }
         [Route("api/eventos/{id}")]
@@ -75,8 +83,8 @@ namespace Api_casa_de_show.Controllers
                 if(ModelState.IsValid){
                     eventoTemp.Id= evento.Id;
                     evento.CasaDeShowsId = eventoTemp.CasaDeShowsId;
-                    evento.GeneroDoEventoId = eventoTemp.GeneroEvento;
-                    evento.NomeDoEvento = eventoTemp.NomeDoEvento;
+                    // evento.GeneroDoEventoId = eventoTemp.GeneroEvento;
+                    // evento.NomeDoEvento = eventoTemp.NomeDoEvento;
                     evento.Capacidade = eventoTemp.Capacidade;
                     evento.PrecoIngresso = eventoTemp.PrecoIngresso;
                     evento.DataEvento = eventoTemp.DataEvento;
@@ -87,7 +95,8 @@ namespace Api_casa_de_show.Controllers
                 }
                 else{
                     Response.StatusCode = 400;
-                    return new ObjectResult(eventoTemp);
+                    var erros = ModelState.Values.SelectMany(v=>v.Errors).Select(v=>v.ErrorMessage+""+v.Exception).ToList();
+                    return new ObjectResult(erros);
                 }
             }
             catch{
@@ -114,8 +123,8 @@ namespace Api_casa_de_show.Controllers
         public IActionResult OrdenandoCapAsc(){
             var listaEventos = _eventoRepositorio.ListarEventos();
             int tamanhoListaEvento = listaEventos.Count;
-            if(tamanhoListaEvento<0){
-                Response.StatusCode = 200;
+            if(tamanhoListaEvento>0){
+                Response.StatusCode = 302;
                 var listaAsc = listaEventos.OrderBy(x=>x.Capacidade).FirstOrDefault();
                 return new ObjectResult(listaAsc);
             }
@@ -129,10 +138,10 @@ namespace Api_casa_de_show.Controllers
         public IActionResult OrdenandoCapDes(){
             var listaEventos = _eventoRepositorio.ListarEventos();
             int tamanhoListaEvento = listaEventos.Count;
-            if(tamanhoListaEvento<0){
-                Response.StatusCode = 200;
-                var listaAsc = listaEventos.OrderByDescending(x=>x.Capacidade).FirstOrDefault();
-                return new ObjectResult(listaAsc);
+            if(tamanhoListaEvento>0){
+                Response.StatusCode = 302;
+                var listaDesc = listaEventos.OrderByDescending(x=>x.Capacidade).FirstOrDefault();
+                return new ObjectResult(listaDesc);
             }
             else{
                 Response.StatusCode = 404;
@@ -144,8 +153,8 @@ namespace Api_casa_de_show.Controllers
         public IActionResult OrdenandoDataAsc(){
             var listaEventos = _eventoRepositorio.ListarEventos();
             int tamanhoListaEvento = listaEventos.Count;
-            if(tamanhoListaEvento<0){
-                Response.StatusCode = 200;
+            if(tamanhoListaEvento>0){
+                Response.StatusCode = 302;
                 var listaAsc = listaEventos.OrderBy(x=>x.DataEvetno).FirstOrDefault();
                 return new ObjectResult(listaAsc);
             }
@@ -159,10 +168,10 @@ namespace Api_casa_de_show.Controllers
         public IActionResult OrdenandoDataDes(){
             var listaEventos = _eventoRepositorio.ListarEventos();
             int tamanhoListaEvento = listaEventos.Count;
-            if(tamanhoListaEvento<0){
-                Response.StatusCode = 200;
-                var listaAsc = listaEventos.OrderByDescending(x=>x.DataEvetno).FirstOrDefault();
-                return new ObjectResult(listaAsc);
+            if(tamanhoListaEvento>0){
+                Response.StatusCode = 302;
+                var listaDesc = listaEventos.OrderByDescending(x=>x.DataEvetno).FirstOrDefault();
+                return new ObjectResult(listaDesc);
             }
             else{
                 Response.StatusCode = 404;
@@ -174,8 +183,8 @@ namespace Api_casa_de_show.Controllers
         public IActionResult OrdenandoNomeAsc(){
             var listaEventos = _eventoRepositorio.ListarEventos();
             int tamanhoListaEvento = listaEventos.Count;
-            if(tamanhoListaEvento<0){
-                Response.StatusCode = 200;
+            if(tamanhoListaEvento>0){
+                Response.StatusCode = 302;
                 var listaAsc = listaEventos.OrderBy(x=>x.NomeDoEvento).FirstOrDefault();
                 return new ObjectResult(listaAsc);
             }
@@ -189,10 +198,10 @@ namespace Api_casa_de_show.Controllers
         public IActionResult OrdenandoNomeDesc(){
             var listaEventos = _eventoRepositorio.ListarEventos();
             int tamanhoListaEvento = listaEventos.Count;
-            if(tamanhoListaEvento<0){
-                Response.StatusCode = 200;
-                var listaAsc = listaEventos.OrderByDescending(x=>x.NomeDoEvento).FirstOrDefault();
-                return new ObjectResult(listaAsc);
+            if(tamanhoListaEvento>0){
+                Response.StatusCode = 302;
+                var listaDesc = listaEventos.OrderByDescending(x=>x.NomeDoEvento).FirstOrDefault();
+                return new ObjectResult(listaDesc);
             }
             else{
                 Response.StatusCode = 404;
@@ -204,8 +213,8 @@ namespace Api_casa_de_show.Controllers
         public IActionResult OrdenandoPrecoAsc(){
             var listaEventos = _eventoRepositorio.ListarEventos();
             int tamanhoListaEvento = listaEventos.Count;
-            if(tamanhoListaEvento<0){
-                Response.StatusCode = 200;
+            if(tamanhoListaEvento>0){
+                Response.StatusCode = 302;
                 var listaAsc = listaEventos.OrderBy(x=>x.PrecoIngresso).FirstOrDefault();
                 return new ObjectResult(listaAsc);
             }
@@ -219,10 +228,10 @@ namespace Api_casa_de_show.Controllers
         public IActionResult OrdenandoPrecoDesc(){
             var listaEventos = _eventoRepositorio.ListarEventos();
             int tamanhoListaEvento = listaEventos.Count;
-            if(tamanhoListaEvento<0){
-                Response.StatusCode = 200;
-                var listaAsc = listaEventos.OrderByDescending(x=>x.PrecoIngresso).FirstOrDefault();
-                return new ObjectResult(listaAsc);
+            if(tamanhoListaEvento>0){
+                Response.StatusCode = 302;
+                var listaDesc = listaEventos.OrderByDescending(x=>x.PrecoIngresso).FirstOrDefault();
+                return new ObjectResult(listaDesc);
             }
             else{
                 Response.StatusCode = 404;

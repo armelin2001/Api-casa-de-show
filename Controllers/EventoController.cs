@@ -34,7 +34,7 @@ namespace Api_casa_de_show.Controllers
         [Route("api/eventos/{id}")]
         [HttpGet]
         public IActionResult PegarEventos(int id){
-            var evento = _eventoRepositorio.BuscarEvento(id);
+            var evento = _eventoRepositorio.BuscarEventoUnica(id);
             if(evento!=null){
                 Response.StatusCode = 302;
                 return new ObjectResult(evento);
@@ -64,13 +64,6 @@ namespace Api_casa_de_show.Controllers
             }
             else{
                 var erros = ModelState.Values.SelectMany(v=>v.Errors).Select(v=>v.ErrorMessage+""+v.Exception).ToList();
-                // var eventoErro = new CriandoEventoViewModel();
-                // eventoErro.CasaDeShowsId = eventoTemp.CasaDeShowsId;
-                // eventoErro.GeneroEvento = eventoTemp.GeneroEvento;
-                // eventoErro.NomeDoEvento = eventoTemp.NomeDoEvento;
-                // eventoErro.Capacidade = eventoTemp.Capacidade;
-                // eventoErro.PrecoIngresso =  eventoTemp.PrecoIngresso;
-                // eventoErro.DataEvento = eventoTemp.DataEvento;
                 Response.StatusCode = 400;
                 return new ObjectResult(erros);
             }
@@ -79,24 +72,29 @@ namespace Api_casa_de_show.Controllers
         [HttpPut]
         public IActionResult EditarEvento([FromBody] EdicaoEventoViewModel eventoTemp){
             try{
-                var evento = _eventoRepositorio.BuscarEvento(eventoTemp.Id);
-                if(ModelState.IsValid){
-                    eventoTemp.Id= evento.Id;
-                    evento.CasaDeShowsId = eventoTemp.CasaDeShowsId;
-                    // evento.GeneroDoEventoId = eventoTemp.GeneroEvento;
-                    // evento.NomeDoEvento = eventoTemp.NomeDoEvento;
-                    evento.Capacidade = eventoTemp.Capacidade;
-                    evento.PrecoIngresso = eventoTemp.PrecoIngresso;
-                    evento.DataEvento = eventoTemp.DataEvento;
-                    evento.HorarioEvento = eventoTemp.HorarioEvento;
-                    _eventoRepositorio.EditarEvento(evento);
-                    Response.StatusCode = 200;
-                    return new  ObjectResult(evento);
+                if(eventoTemp.Id > 0){
+                    var evento = _eventoRepositorio.BuscarEvento(eventoTemp.Id);
+                    if(ModelState.IsValid){
+                        
+                        evento.CasaDeShowsId = eventoTemp.CasaDeShowsId; 
+                        evento.GeneroDoEventoId = eventoTemp.GeneroEvento;
+                        evento.Capacidade=eventoTemp.Capacidade;
+                        evento.PrecoIngresso= eventoTemp.PrecoIngresso;
+                        evento.DataEvento=eventoTemp.DataEvento;
+                        evento.HorarioEvento = eventoTemp.DataEvento.ToLocalTime() ;
+                        _eventoRepositorio.EditarEvento(evento);
+                        Response.StatusCode = 200;
+                        return new ObjectResult(evento);
+                    }
+                    else{
+                        Response.StatusCode = 400;
+                        var erros = ModelState.Values.SelectMany(v=>v.Errors).Select(v=>v.ErrorMessage+""+v.Exception).ToList();
+                        return new ObjectResult(erros);
+                    }
                 }
                 else{
-                    Response.StatusCode = 400;
-                    var erros = ModelState.Values.SelectMany(v=>v.Errors).Select(v=>v.ErrorMessage+""+v.Exception).ToList();
-                    return new ObjectResult(erros);
+                    Response.StatusCode = 404;
+                    return new ObjectResult(new{msg="Não foi possivel encontrar esse evento"});
                 }
             }
             catch{

@@ -22,7 +22,7 @@ namespace Api_casa_de_show.Controllers
         public IActionResult PegarUsuarios(){
             var listaUsuarios = _usuarioRepositorio.ListarUsuarios();
             int tamanhoListaUsuarios = listaUsuarios.Count;
-            if(tamanhoListaUsuarios<0){
+            if(tamanhoListaUsuarios>0){
                 Response.StatusCode = 200;
                 return new ObjectResult(listaUsuarios);
             }

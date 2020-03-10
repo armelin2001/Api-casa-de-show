@@ -88,8 +88,9 @@ namespace Api_casa_de_show.Migrations
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
-                    UserId = table.Column<string>(nullable: true),
+                    UserId = table.Column<int>(nullable: false),
                     QtdIngresso = table.Column<int>(nullable: false),
+                    ValorCompra = table.Column<float>(nullable: false),
                     EventoId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -99,6 +100,12 @@ namespace Api_casa_de_show.Migrations
                         name: "FK_Vendas_Eventos_EventoId",
                         column: x => x.EventoId,
                         principalTable: "Eventos",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Vendas_Usuarios_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Usuarios",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -117,18 +124,23 @@ namespace Api_casa_de_show.Migrations
                 name: "IX_Vendas_EventoId",
                 table: "Vendas",
                 column: "EventoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Vendas_UserId",
+                table: "Vendas",
+                column: "UserId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Usuarios");
-
-            migrationBuilder.DropTable(
                 name: "Vendas");
 
             migrationBuilder.DropTable(
                 name: "Eventos");
+
+            migrationBuilder.DropTable(
+                name: "Usuarios");
 
             migrationBuilder.DropTable(
                 name: "CasasDeShows");

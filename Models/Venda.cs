@@ -10,10 +10,11 @@ namespace Api_casa_de_show.Models
     public class Venda
     {
         public int Id{get;set;}
-        public string UserId{get;set;}
+        public int UserId{get;set;}
+        [ForeignKey("UserId")]
+        public virtual Usuario Usuario{get;set;}
         public int QtdIngresso{get;set;}
-        public float ValorCompra{get{return QtdIngresso * Evento.PrecoIngresso;}
-        }
+        public float ValorCompra{get;set;}
         public int EventoId{get;set;}
         [ForeignKey("EventoId")]
         public virtual Evento Evento{get;set;}

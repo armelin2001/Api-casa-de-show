@@ -30,6 +30,7 @@ namespace Api_casa_de_show
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddResponseCompression();
             services.AddDbContext<ApplicationDbContext>(options=>options.UseMySql(Configuration.GetConnectionString("DefaultConnection")));
             services.AddSwaggerGen(config=>{
                 config.SwaggerDoc("v1", new OpenApiInfo{Title = "Api",Version="v1"});
@@ -52,13 +53,13 @@ namespace Api_casa_de_show
             {
                 app.UseDeveloperExceptionPage();
             }
-
+            
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
             app.UseAuthorization();
-
+            app.UseResponseCompression();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();

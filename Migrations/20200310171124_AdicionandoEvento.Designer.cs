@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Api_casa_de_show.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200305120257_AdicionandoEvento")]
+    [Migration("20200310171124_AdicionandoEvento")]
     partial class AdicionandoEvento
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -121,12 +121,17 @@ namespace Api_casa_de_show.Migrations
                     b.Property<int>("QtdIngresso")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<float>("ValorCompra")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
                     b.HasIndex("EventoId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Vendas");
                 });
@@ -147,6 +152,12 @@ namespace Api_casa_de_show.Migrations
                     b.HasOne("Api_casa_de_show.Models.Evento", "Evento")
                         .WithMany()
                         .HasForeignKey("EventoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Api_casa_de_show.Models.Usuario", "Usuario")
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

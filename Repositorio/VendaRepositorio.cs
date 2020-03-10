@@ -1,6 +1,7 @@
 using Api_casa_de_show.Data;
 using Api_casa_de_show.Models;
 using Api_casa_de_show.Models.ViewModels.VendaViewModels;
+using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 namespace Api_casa_de_show.Repositorio
@@ -12,18 +13,33 @@ namespace Api_casa_de_show.Repositorio
             _database = database;
         }
         public List<ListarVendaViewModel> ListarVendas(){
-            return _database.Vendas.Select(x=> new ListarVendaViewModel
+            return _database.Vendas.Include(x=>x.Evento).Select(x=> new ListarVendaViewModel
             {
                 Id = x.Id,
                 Qtdingresso = x.QtdIngresso,
                 ValorCompra = x.ValorCompra,
+                EventoId = x.EventoId,
                 NomeEvento = x.Evento.NomeDoEvento,
-                EndercoEvento = x.Evento.CasaDeShow.Endereco
+                EndercoCasaDeShow = x.Evento.CasaDeShow.Endereco,
+                DataEvento = x.Evento.DataEvento
             }).ToList();
         }
-        public Venda BuscarVenda(int id){
-            var buscaVenda = _database.Vendas.FirstOrDefault(vend=> vend.Id == id);
-            return buscaVenda;
+        // public VendaUnicaViewModel vend(int id){
+        //     return _database.Vendas.Include(x=>x.Evento).Select(x=> new VendaUnicaViewModel{
+        //         Id = ForeignKeyExtensions
+        //     })
+        // }
+
+        public VendaUnicaViewModel BuscarVenda(int id){
+            var busca = _database.Vendas.Include(x=>x.Evento).Select(x=> new VendaUnicaViewModel {
+                Id = x.Id,
+                UserId = x.Usuario.Id,
+                QtdIngresso = x.QtdIngresso,
+                ValorCompra = x.ValorCompra,
+                EventoId = x.EventoId,
+                EventoNome = x.Evento.NomeDoEvento
+            }).FirstOrDefault(x=>x.Id == id);
+            return busca; 
         }
     }
 }

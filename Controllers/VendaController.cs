@@ -27,7 +27,7 @@ namespace Api_casa_de_show.Controllers
         public IActionResult PegarVendas(){
             var listaDeVendas = _vendaRepositorio.ListarVendas();
             int tamanhoLista = listaDeVendas.Count;
-            if(tamanhoLista<0){
+            if(tamanhoLista>0){
                 Response.StatusCode = 302;
                 return new ObjectResult(listaDeVendas);
             }

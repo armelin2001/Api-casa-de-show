@@ -119,12 +119,17 @@ namespace Api_casa_de_show.Migrations
                     b.Property<int>("QtdIngresso")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserId")
-                        .HasColumnType("longtext CHARACTER SET utf8mb4");
+                    b.Property<int>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<float>("ValorCompra")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
                     b.HasIndex("EventoId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Vendas");
                 });
@@ -145,6 +150,12 @@ namespace Api_casa_de_show.Migrations
                     b.HasOne("Api_casa_de_show.Models.Evento", "Evento")
                         .WithMany()
                         .HasForeignKey("EventoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Api_casa_de_show.Models.Usuario", "Usuario")
+                        .WithMany()
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

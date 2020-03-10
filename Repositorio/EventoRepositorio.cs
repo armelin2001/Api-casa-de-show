@@ -34,6 +34,23 @@ namespace Api_casa_de_show.Repositorio
             var buscaEvento = _database.Eventos.FirstOrDefault(x=>x.Id == id);
             return buscaEvento;
         }
+        public EventoUnicoViewModel BuscarEventoUnica(int id){
+            var buscaUnica = _database.Eventos.Include(x=>x.CasaDeShow).Include(x=>x.GeneroEvento).Select(x=>
+            new EventoUnicoViewModel{
+                Id = x.Id,
+                CasaDeShowId = x.CasaDeShow.Id,
+                NomeCasaDeShow = x.CasaDeShow.NomeCasaDeShow,
+                GeneroEventoId = x.GeneroEvento.Id,
+                NomeGenero = x.GeneroEvento.NomeGenero,
+                NomeDoEvento = x.NomeDoEvento,
+                Capacidade = x.Capacidade,
+                PrecoIngresso = x.PrecoIngresso,
+                DataEvento = x.DataEvento,
+                HorarioEvento = x.HorarioEvento
+
+            }).FirstOrDefault(x=>x.Id ==id);
+            return buscaUnica;
+        }
         public void AdicionarEvento(Evento evento){
             _database.Eventos.Add(evento);
             _database.SaveChanges();

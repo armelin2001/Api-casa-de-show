@@ -18,5 +18,4 @@ namespace Api_casa_de_show.Repositorio
             return buscaUsuario;
         }
     }
-    
 }

@@ -24,12 +24,6 @@ namespace Api_casa_de_show.Repositorio
                 DataEvento = x.Evento.DataEvento
             }).ToList();
         }
-        // public VendaUnicaViewModel vend(int id){
-        //     return _database.Vendas.Include(x=>x.Evento).Select(x=> new VendaUnicaViewModel{
-        //         Id = ForeignKeyExtensions
-        //     })
-        // }
-
         public VendaUnicaViewModel BuscarVenda(int id){
             var busca = _database.Vendas.Include(x=>x.Evento).Select(x=> new VendaUnicaViewModel {
                 Id = x.Id,

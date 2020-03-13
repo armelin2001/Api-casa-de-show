@@ -36,10 +36,6 @@
       "frameworks": {
         "netcoreapp3.1": {
           "dependencies": {
-            "Microsoft.AspNetCore.Authentication.JwtBearer": {
-              "target": "Package",
-              "version": "[3.1.1, )"
-            },
             "Microsoft.AspNetCore.ResponseCompression": {
               "target": "Package",
               "version": "[2.2.0, )"
@@ -65,10 +61,6 @@
             "Swashbuckle.AspNetCore.Swagger": {
               "target": "Package",
               "version": "[5.0.0, )"
-            },
-            "System.IdentityModel.Tokens.Jwt": {
-              "target": "Package",
-              "version": "[5.6.0, )"
             }
           },
           "imports": [

@@ -26,7 +26,7 @@ namespace Api_casa_de_show.Repositorio
                 GeneroEvento = x.GeneroEvento.NomeGenero,
                 NomeDoEvento = x.NomeDoEvento,
                 Capacidade = x.Capacidade,
-                DataEvento = x.DataEvento,
+                DataEvetno = x.DataEvento,
                 HorarioEvento = x.HorarioEvento
             }).ToList();
         }

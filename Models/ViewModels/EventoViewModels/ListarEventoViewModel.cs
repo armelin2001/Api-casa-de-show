@@ -11,7 +11,7 @@ namespace Api_casa_de_show.Models.ViewModels.EventoViewModels
         public string NomeDoEvento{get;set;}
         public int Capacidade{get;set;}
         public float PrecoIngresso{get;set;}
-        public DateTime DataEvento{get;set;}
+        public DateTime DataEvetno{get;set;}
         public DateTime HorarioEvento{get;set;}
     }
 }
